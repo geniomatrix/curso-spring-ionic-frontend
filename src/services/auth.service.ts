@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { API_CONFIG } from "../config/api.config";
 import { LocalUser } from "../models/local_user";
 import { StorageService } from "./storage.service";
-import { JwtHelper} from "angular2-jwt";
+import { JwtHelper } from 'angular2-jwt';
 
 
 @Injectable()
@@ -14,8 +14,7 @@ export class AuthService {
 
     constructor(
         public http: HttpClient, 
-        public storage: StorageService
-        ) {
+        public storage: StorageService) {
     }
 
     authenticate(creds : CredenciaisDTO) {
@@ -43,7 +42,6 @@ export class AuthService {
         let user : LocalUser = {
             token: tok,
             email: this.jwtHelper.decodeToken(tok).sub
-            
         };
         this.storage.setLocalUser(user);
         
