@@ -15,8 +15,8 @@ export class ProfilePage {
 
   cliente: ClienteDTO;
   picture: string;
-  profileImage;
-  cameraOn: boolean = false;
+  
+  
 
   constructor(
     public navCtrl: NavController, 
@@ -24,7 +24,7 @@ export class ProfilePage {
     public storage: StorageService,
     public clienteService: ClienteService) {
 
-      this.profileImage = 'assets/imgs/avatar-blank.png';
+      
   }
 
   ionViewDidLoad() {
@@ -33,7 +33,7 @@ export class ProfilePage {
         this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
           this.cliente = response;
-          this.getImageIfExists();
+          
         },
         error => {
           if (error.status == 403) {
