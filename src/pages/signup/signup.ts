@@ -5,6 +5,8 @@ import { CidadeService } from '../../services/domain/cidade.service';
 import { EstadoService } from '../../services/domain/estado.service';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
+import { ClienteService } from '../../services/domain/cliente.service';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 @IonicPage()
 @Component({
@@ -22,7 +24,9 @@ export class SignupPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public cidadeService: CidadeService,
-    public estadoService: EstadoService) {
+    public estadoService: EstadoService,
+    public clienteService: ClienteService,
+    public alertCtrl: AlertController) {
 
     this.formGroup = this.formBuilder.group({
       nome: ['Joaquim', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -30,12 +34,12 @@ export class SignupPage {
       tipo : ['1', [Validators.required]],
       cpfOuCnpj : ['06134596280', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
       senha : ['123', [Validators.required]],
-      logradouro : ['Rua Via', [Validators.required]],
+      logradouro : ['Rua Flores', [Validators.required]],
       numero : ['25', [Validators.required]],
-      complemento : ['Apto 3', []],
-      bairro : ['Copacabana', []],
-      cep : ['10828333', [Validators.required]],
-      telefone1 : ['977261827', [Validators.required]],
+      complemento : ['Apto 303', []],
+      bairro : ['Jardim', []],
+      cep : ['38220834', [Validators.required]],
+      telefone1 : ['27363323', [Validators.required]],
       telefone2 : ['', []],
       telefone3 : ['', []],
       estadoId : [null, [Validators.required]],
@@ -52,7 +56,7 @@ export class SignupPage {
       },
       error => {});
   }
-  
+
   updateCidades() {
     let estado_id = this.formGroup.value.estadoId;
     this.cidadeService.findAll(estado_id)
@@ -64,7 +68,27 @@ export class SignupPage {
   }
 
   signupUser() {
-    console.log("enviou o form");
+    this.clienteService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+      error => {});
   }
-  
+
+  showInsertOk() {
+    let alert = this.alertCtrl.create({
+      title: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.pop();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 }
