@@ -12,7 +12,7 @@ import { ErrorInterceptor, ErrorInterceptorProvider } from '../interceptors/erro
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
 import { ClienteService } from '../services/domain/cliente.service';
-import { AuthInterceptor } from '../interceptors/auth-interceptor';
+import { AuthInterceptor, AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 import { ProdutoService } from '../services/domain/produto.service';
 import { CartService } from '../services/domain/cart.service';
 
@@ -35,6 +35,7 @@ import { CartService } from '../services/domain/cart.service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     CategoriaService,
     AuthInterceptor,
+    AuthInterceptorProvider,
     ErrorInterceptorProvider,
     AuthService,
     StorageService,
