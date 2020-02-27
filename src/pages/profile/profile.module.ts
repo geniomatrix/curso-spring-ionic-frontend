@@ -3,7 +3,6 @@ import { IonicPageModule } from 'ionic-angular';
 import { ProfilePage } from './profile';
 import { Camera } from '@ionic-native/camera/ngx';
 
-
 @NgModule({
   declarations: [
     ProfilePage,
@@ -13,6 +12,6 @@ import { Camera } from '@ionic-native/camera/ngx';
   ],
   providers: [
     Camera
-  ]  
+  ]
 })
 export class ProfilePageModule {}

@@ -5,7 +5,7 @@ import { ClienteDTO } from '../../models/cliente.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
 import { API_CONFIG } from '../../config/api.config';
 import { CameraOptions, Camera } from '@ionic-native/camera/ngx';
-
+import { DomSanitizer } from '@angular/platform-browser';
 
 @IonicPage()
 @Component({
@@ -17,37 +17,41 @@ export class ProfilePage {
   cliente: ClienteDTO;
   picture: string;
   cameraOn: boolean = false;
-  
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public storage: StorageService,
     public clienteService: ClienteService,
-    public camera: Camera) {
+    public camera: Camera,
+    public sanitizer: DomSanitizer) {
 
       
   }
 
   ionViewDidLoad() {
+    this.loadData();
+  }
+
+  loadData() {
     let localUser = this.storage.getLocalUser();
     if (localUser && localUser.email) {
-        this.clienteService.findByEmail(localUser.email)
+      this.clienteService.findByEmail(localUser.email)
         .subscribe(response => {
           this.cliente = response as ClienteDTO;
           this.getImageIfExists();
         },
         error => {
           if (error.status == 403) {
-            this.navCtrl.setRoot("HomePage");
-
+            this.navCtrl.setRoot('HomePage');
           }
         });
     }
     else {
-      this.navCtrl.setRoot("HomePage");
-    }
+      this.navCtrl.setRoot('HomePage');
+    }    
   }
+
   getImageIfExists() {
     this.clienteService.getImageFromBucket(this.cliente.id)
     .subscribe(response => {
@@ -57,22 +61,32 @@ export class ProfilePage {
   }
 
   getCameraPicture() {
-
     this.cameraOn = true;
-
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.PNG,
       mediaType: this.camera.MediaType.PICTURE
     }
-
+    
     this.camera.getPicture(options).then((imageData) => {
      this.picture = 'data:image/png;base64,' + imageData;
      this.cameraOn = false;
     }, (err) => {
     });
   }
-}
-  
 
+  sendPicture() {
+    this.clienteService.uploadPicture(this.picture)
+      .subscribe(response => {
+        this.picture = null;
+        this.getImageIfExists();
+      },
+      error => {
+      });
+  }
+
+  cancel() {
+    this.picture = null;
+  }
+}
