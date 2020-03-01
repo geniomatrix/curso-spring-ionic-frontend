@@ -12,6 +12,7 @@
 Thumbs.db
 UserInterfaceState.xcuserstate
 $RECYCLE.BIN/
+.vs/
 
 *.log
 log.txt
@@ -29,4 +30,4 @@ npm-debug.log*
 /platforms
 /plugins
 /www
-.vs/
+

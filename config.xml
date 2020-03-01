@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.arcanjoweb.cursospringbootionic" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.arcanjoweb.awapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Sistema de Pedidos AW</name>
     <description>Case Spring boot e Ionic</description>
     <author email="eugenio@arcanjoweb.com.br" href="https://arcanjoweb.com.br/">Equpe AW-Consultoria</author>
