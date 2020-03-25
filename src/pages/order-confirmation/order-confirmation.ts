@@ -52,8 +52,13 @@ export class OrderConfirmationPage {
   total() : number {
     return this.cartService.total();
   } 
+
   back() {
     this.navCtrl.setRoot('CartPage');
+  }
+
+  home() {
+    this.navCtrl.setRoot('CategoriasPage');
   }
 
   checkout() {
@@ -73,5 +78,4 @@ export class OrderConfirmationPage {
     let position = location.lastIndexOf('/');
     return location.substring(position + 1, location.length);
   }
-
 }
